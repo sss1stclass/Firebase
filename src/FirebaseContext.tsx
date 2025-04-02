@@ -3,7 +3,7 @@ import { app } from '../Firebase'
 
 export const createFirebaseContext = createContext<any>(null);
 import { getDatabase, ref, set } from 'firebase/database';
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+// import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
 
 const db = getDatabase(app);
 //   const auth = getAuth(app);

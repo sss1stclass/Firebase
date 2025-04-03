@@ -14,6 +14,8 @@ const SignUpPage = () => {
     password: ''
   });
 
+  const [open, setOpen] = useState(true);
+
   const handleChange = (event: any) => {
     const { name, value }: any = event.target;
 
@@ -43,35 +45,34 @@ const SignUpPage = () => {
             <Button onClick={() => getSignUP(formData.email, formData.password)} variant="contained" color="success">SignUP</Button>
           </Box>
         </Paper>
-        {
-          userData ? (
-            <>
-              <Snackbar open={userData} autoHideDuration={6000}>
-                <Alert
-                  // onClose={handleClose}
-                  severity="success"
-                  variant="filled"
-                  sx={{ width: '100%' }}
-                >
-                Account Created Successfully!!!
-                </Alert>
-              </Snackbar>
-            </>
-          ) : (
-            <>
-              <Snackbar open={userError} autoHideDuration={2000}>
-                <Alert
-                  // onClose={handleClose}
-                  severity="error"
-                  variant="filled"
-                  sx={{ width: '100%' }}
-                >
-                  {userError.message}
-                </Alert>
-              </Snackbar>
-            </>
-          )
-        }
+        {/* Success Snackbar */}
+        {userData ? (
+          <Snackbar open={!!userData} autoHideDuration={6000}>
+            <Alert
+              severity="success"
+              variant="filled"
+              sx={{ width: '100%' }}
+            >
+              Account Created Successfully!!!
+            </Alert>
+          </Snackbar>
+        ) : null}
+
+        {/* Error Snackbar */}
+        {userError ? (
+          <Snackbar open={userError?open:!open} autoHideDuration={200}>
+            <Alert
+              severity="error"
+              variant="filled"
+              sx={{ width: '100%' }}
+              onClose={()=>setTimeout(() => {
+                 setOpen(false)
+              }, 2000)}
+            >
+              {userError.message}
+            </Alert>
+          </Snackbar>
+        ) : null}
       </Box>
     </>
 

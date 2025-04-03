@@ -5,7 +5,6 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
-import WhatshotIcon from '@mui/icons-material/Whatshot';
 
 export default function Header() {
   return (
@@ -25,7 +24,12 @@ export default function Header() {
             {/* <WhatshotIcon color='secondary'/> */}
             Firebase
           </Typography>
+          <a href="/" style={{textDecoration:'none', color:'white'}}>
           <Button color="inherit">Login</Button>
+          </a>
+          <a href="/signUp" style={{textDecoration:'none', color:'white'}}>
+          <Button color="inherit">Sign Up</Button>
+          </a>          
         </Toolbar>
       </AppBar>
     </Box>

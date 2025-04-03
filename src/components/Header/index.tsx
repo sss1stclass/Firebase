@@ -22,14 +22,13 @@ export default function Header() {
           </IconButton>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             {/* <WhatshotIcon color='secondary'/> */}
-            Firebase
+            <a href="/" style={{ textDecoration: 'none', color: 'white' }}>
+              Firebase
+            </a>
           </Typography>
-          <a href="/" style={{textDecoration:'none', color:'white'}}>
-          <Button color="inherit">Login</Button>
+          <a href='/LogIn' style={{ textDecoration: 'none', color: 'white' }}>
+            <Button color="inherit">Login</Button>
           </a>
-          <a href="/signUp" style={{textDecoration:'none', color:'white'}}>
-          <Button color="inherit">Sign Up</Button>
-          </a>          
         </Toolbar>
       </AppBar>
     </Box>

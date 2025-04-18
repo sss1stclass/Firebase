@@ -1,15 +1,17 @@
 import { Alert, Box, Button, Divider, IconButton, Paper, Snackbar, TextField, Typography } from "@mui/material"
-import { useContext, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import { createFirebaseContext } from '../../FirebaseContext';
 import GoogleIcon from '@mui/icons-material/Google';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import FacebookIcon from '@mui/icons-material/Facebook';
+import { useNavigate } from "react-router-dom";
 
 
 const SignUpPage = () => {
 
   const getContextData = useContext(createFirebaseContext);
-  const { createRealTimeDb, getSignUP, userData, userError }: any = getContextData;
+  const { getSignUP, userData, userError }: any = getContextData;
+  const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
     email: '',
@@ -26,12 +28,18 @@ const SignUpPage = () => {
       [name]: value
     })
   }
-  const handleRest = async ()=>{
-     await getSignUP(formData.email, formData.password);
-     setFormData({
-      email:'',
-      password:''
-     })
+  useEffect(() => {
+    if (userData) {
+      alert('successfully login');
+      navigate('/LogIn');
+    }
+  }, [userData])
+  const handleRest = async () => {
+    await getSignUP(formData.email, formData.password);
+    setFormData({
+      email: '',
+      password: ''
+    })
   }
 
 
@@ -93,13 +101,13 @@ const SignUpPage = () => {
           <Typography textAlign='center' variant="body1">or, Sign Up With</Typography>
           <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 2, marginTop: 2 }}>
             <IconButton>
-              <GoogleIcon color="success"/>
+              <GoogleIcon color="success" />
             </IconButton>
             <IconButton>
-              <GitHubIcon color="success"/>
+              <GitHubIcon color="success" />
             </IconButton>
             <IconButton>
-              <FacebookIcon color="success"/>
+              <FacebookIcon color="success" />
             </IconButton>
           </Box>
         </Paper>

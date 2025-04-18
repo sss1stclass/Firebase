@@ -32,7 +32,7 @@ const LoginInPage = () => {
     useEffect(() => {
         if (loginData) {
             alert('successfully login');
-            navigate('/home'); // Navigate to home after successful login
+            navigate('/home');
         }
         if (userLogInError) {
             alert(userLogInError);

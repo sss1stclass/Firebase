@@ -1,12 +1,12 @@
 import { createContext, useState } from 'react';
 import { app } from '../Firebase'
-import { useNavigate } from 'react-router-dom';
 export const createFirebaseContext = createContext<any>(null);
 import { getDatabase, ref, set } from 'firebase/database';
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 
 const db = getDatabase(app);
 const auth = getAuth(app);
+const provider = new GoogleAuthProvider();
 
 
 
@@ -16,7 +16,7 @@ const FirebaseContext = ({ children }: any) => {
     const [userError, setUserError] = useState<any>('');
     const [userLogInError, setUserLogInError] = useState<any>('')
     const [logout, setLogOut] = useState(false);
-    // const navigate = useNavigate();
+    const [signInWithGoogle, setSignInWithGoogle] = useState(false);
 
 
     const createRealTimeDb = () => {
@@ -34,6 +34,19 @@ const FirebaseContext = ({ children }: any) => {
         } catch (error) {
             setUserError(error)
         }
+    }
+
+    const sighnUpWithGoogle = async () => {
+        try{
+            const res = await signInWithPopup(auth, provider);
+            if(res){
+             setSignInWithGoogle(true);
+            }
+        }catch(error){
+            console.log(error);
+            alert(error)
+        }
+      
     }
 
     const logInUser = async (email: any, password: any) => {
@@ -54,7 +67,7 @@ const FirebaseContext = ({ children }: any) => {
     }
 
 
-    const contextValue = { createRealTimeDb, getSignUP, userData, userError, logInUser, loginData, userLogInError, logOut, logout }
+    const contextValue = { createRealTimeDb, getSignUP, userData, userError, logInUser, loginData, userLogInError, logOut, logout,sighnUpWithGoogle, signInWithGoogle }
     // abc1234
 
     return (

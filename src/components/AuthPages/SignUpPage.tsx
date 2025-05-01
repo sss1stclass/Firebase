@@ -10,7 +10,7 @@ import { useNavigate } from "react-router-dom";
 const SignUpPage = () => {
 
   const getContextData = useContext(createFirebaseContext);
-  const { getSignUP, userData, userError }: any = getContextData;
+  const { getSignUP, userData, userError, sighnUpWithGoogle, signInWithGoogle }: any = getContextData;
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
@@ -28,12 +28,19 @@ const SignUpPage = () => {
       [name]: value
     })
   }
+
   useEffect(() => {
     if (userData) {
-      alert('successfully login');
+      alert('successfully SignUp.... Please Login');
       navigate('/LogIn');
     }
   }, [userData])
+  useEffect(() => {
+    if (signInWithGoogle) {
+      alert('successfully SignUp.... Please Login');
+      navigate('/home');
+    }
+  }, [signInWithGoogle])
   const handleRest = async () => {
     await getSignUP(formData.email, formData.password);
     setFormData({
@@ -100,7 +107,7 @@ const SignUpPage = () => {
           <Divider sx={{ margin: 2 }} />
           <Typography textAlign='center' variant="body1">or, Sign Up With</Typography>
           <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 2, marginTop: 2 }}>
-            <IconButton>
+            <IconButton onClick={sighnUpWithGoogle}>
               <GoogleIcon color="success" />
             </IconButton>
             <IconButton>
